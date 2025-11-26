@@ -1,0 +1,104 @@
+{
+  // --- BASICS ---
+  "name": "async-run-limit",
+  "version": "1.0.0",
+  "description": "A lightweight, robust utility to run asynchronous tasks with a concurrency limit.",
+
+  // "type": "module" forces Node.js to treat .js files as ES Modules (import/export) by default.
+  // This is the modern standard for 2025+.
+  "type": "module",
+
+  // --- LEGACY FALLBACKS ---
+  // These fields are for older tools (Old Node.js, Webpack 4) that don't understand "exports".
+  "main": "./dist/index.cjs", // Fallback for require()
+  "module": "./dist/index.mjs", // Fallback for bundlers looking for ESM
+  "types": "./dist/index.d.mts", // Fallback for older TypeScript versions
+
+  // --- MODERN EXPORTS (The Critical Part) ---
+  // This tells Node.js and modern bundlers exactly which file to load based on HOW it is imported.
+  "exports": {
+    ".": {
+      "import": {
+        // TypeScript looks here first when using "import"
+        "types": "./dist/index.d.mts",
+        // Node.js/Bundlers look here when using "import"
+        "default": "./dist/index.mjs",
+      },
+      "require": {
+        // TypeScript looks here first when using "require"
+        "types": "./dist/index.d.cts",
+        // Node.js looks here when using "require"
+        "default": "./dist/index.cjs",
+      },
+    },
+  },
+
+  // --- OPTIMIZATION ---
+  // "false" tells bundlers (Vite, Webpack) that your code doesn't modify global variables.
+  // This enables "Tree Shaking" (removing your code if it's imported but not used).
+  "sideEffects": false,
+
+  // --- SCRIPTS ---
+  "scripts": {
+    // Development: Runs tests in watch mode (reruns on save)
+    "dev": "vitest",
+
+    // CI/CD: Runs tests once
+    "test": "vitest run",
+
+    // Type Checking: Checks for TypeScript errors without emitting files
+    "typecheck": "tsc --noEmit",
+
+    // Build: Uses tsdown to generate the ./dist folder (CJS + ESM)
+    "build": "tsdown",
+
+    // Quality Control: Checks for bugs/style issues
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+
+    // Formatting: Makes code look pretty
+    "format": "prettier --write .",
+
+    // THE SAFETY NET:
+    // This runs AUTOMATICALLY when you type "npm publish".
+    // It guarantees you never publish broken code.
+    "prepublishOnly": "npm run typecheck && npm run lint && npm run test && npm run build",
+  },
+
+  // --- DEPENDENCIES ---
+  "devDependencies": {
+    "eslint": "^9.39.1", // Linter (Finds bugs)
+    "eslint-config-prettier": "^10.1.8", // Stops ESLint from fighting Prettier
+    "prettier": "^3.6.2", // Formatter (Fixes layout)
+    "tsdown": "^0.16.6", // Bundler (Builds TS -> JS)
+    "typescript": "^5.9.3", // Compiler
+    "typescript-eslint": "^8.48.0", // ESLint plugin for TypeScript
+    "vitest": "^4.0.13", // Test Runner
+  },
+
+  // --- PUBLISHING CONFIG ---
+  // This acts as a "Whitelist". Only files in this list are uploaded to NPM.
+  // This overrides .gitignore (so we can publish 'dist' even if it's gitignored).
+  "files": ["dist"],
+
+  // Forces the package to be public.
+  "publishConfig": {
+    "access": "public",
+  },
+
+  // --- METADATA ---
+  // Good for SEO on npmjs.com
+  "keywords": ["async", "concurrency", "limit", "promise", "task", "runner", "queue", "throttle"],
+  "license": "MIT",
+  "author": "JK",
+
+  // Linking repo helps NPM display the "Repository" link on your package page
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnsonkit/async-run-limit.git",
+  },
+  "bugs": {
+    "url": "https://github.com/johnsonkit/async-run-limit/issues",
+  },
+  "homepage": "https://github.com/johnsonkit/async-run-limit#readme",
+}
