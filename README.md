@@ -19,7 +19,7 @@ Designed for modern web development, it uses `Set` for **O(1)** performance, han
 ## Installation
 
 ```bash
-npm install async-run-limit
+npm install @johnsonkit/async-run-limit
 ```
 
 ## Usage

@@ -1,6 +1,6 @@
 {
   // --- BASICS ---
-  "name": "async-run-limit",
+  "name": "@johnsonkit/async-run-limit",
   "version": "1.0.0",
   "description": "A lightweight, robust utility to run asynchronous tasks with a concurrency limit.",
 
