@@ -39,7 +39,8 @@
     "vitest": "^4.0.13"
   },
   "files": [
-    "dist"
+    "dist",
+    "CHANGELOG.md"
   ],
   "publishConfig": {
     "access": "public"

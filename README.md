@@ -1,6 +1,6 @@
 # async-run-limit
 
-[![npm version](https://img.shields.io/npm/v/async-run-limit.svg?style=flat-square)](https://www.npmjs.com/package/async-run-limit)
+[![npm version](https://img.shields.io/npm/v/@johnsonkit/async-run-limit.svg?style=flat-square)](https://www.npmjs.com/package/@johnsonkit/async-run-limit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg?style=flat-square)](https://www.typescriptlang.org/)
 
@@ -27,7 +27,7 @@ npm install @johnsonkit/async-run-limit
 ### 1. TypeScript / ES Modules (Recommended)
 
 ```typescript
-import { runWithLimit } from 'async-run-limit';
+import { runWithLimit } from '@johnsonkit/async-run-limit';
 
 // 1. Define your tasks (Functions that return a Promise)
 // Note: Do not call the function immediately! Pass the function definition.
@@ -48,11 +48,25 @@ console.log(results);
 ### 2. CommonJS (Legacy Node.js)
 
 ```javascript
-const { runWithLimit } = require('async-run-limit');
+const { runWithLimit } = require('@johnsonkit/async-run-limit');
 
 const tasks = [() => Promise.resolve('A'), () => Promise.resolve('B')];
 
 runWithLimit(tasks, 1).then(console.log);
+```
+
+### 3. Browser (CDN)
+
+Use directly in the browser via ESM-friendly CDNs.
+
+```html
+<script type="module">
+  import { runWithLimit } from 'https://esm.sh/@johnsonkit/async-run-limit';
+
+  const tasks = [() => new Promise((resolve) => setTimeout(() => resolve('Done'), 3000))];
+
+  runWithLimit(tasks, 1).then((res) => console.log(res));
+</script>
 ```
 
 ## API Reference
@@ -87,6 +101,10 @@ npm run dev
 # 4. Build package
 npm run build
 ```
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for release history.
 
 ## License
 

@@ -79,7 +79,7 @@
   // --- PUBLISHING CONFIG ---
   // This acts as a "Whitelist". Only files in this list are uploaded to NPM.
   // This overrides .gitignore (so we can publish 'dist' even if it's gitignored).
-  "files": ["dist"],
+  "files": ["dist", "CHANGELOG.md"],
 
   // Forces the package to be public.
   "publishConfig": {
